@@ -5,32 +5,40 @@ const app = express()
 app.use(express.json())
 
 app.post("/github", async (req,res)=>{
-    console.log("Github send a message")
-    const data  = req.body;
-    
-    const filesModified = data.head_commit.modified;
+const data = req.body;
 
-    if (filesModified.length > 0){
-        for(const file in filesModified){
-            console.log("reading files")
+    // 1. Get the list of modified files
+    const modifiedFiles = data.head_commit.modified; // This is an array like ["README.md"]
 
+    if (modifiedFiles.length > 0) {
+        for (const filePath of modifiedFiles) {
+            console.log(`--- Reading file: ${filePath} ---`);
+
+            // 2. Construct the URL to get the "Raw" content
+            // Format: https://raw.githubusercontent.com/OWNER/REPO/BRANCH/PATH
             const owner = data.repository.owner.login;
             const repo = data.repository.name;
-            const branch = data.ref.replace("refs/heads/", "")
+            const branch = data.ref.replace("refs/heads/", ""); // Extracts 'main'
+            
+            const rawUrl = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/${filePath}`;
 
-            const rawUrl = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/${file}`;
-            try  {
-                const response = await fetch(rawUrl)
-                const text = await response.text()
+            try {
+                // 3. Fetch the actual content
+                const response = await fetch(rawUrl);
+                const content = await response.text();
 
-                console.log("file data :" , text)
-
-            }catch{
-                console.log("get some help")
-            }    
+                console.log(`Content of ${filePath}:`);
+                console.log(content); // <--- THIS IS YOUR README TEXT!
+                
+                // --- NOW YOU CAN SAVE 'content' TO YOUR DATABASE ---
+                
+            } catch (error) {
+                console.error("Error fetching file content:", error);
+            }
         }
     }
-    res.send("OK")
+
+    res.status(200).send("Processed");
 })
 
 app.listen(3000, ()=> console.log("Server is runnign on port 3000"));
