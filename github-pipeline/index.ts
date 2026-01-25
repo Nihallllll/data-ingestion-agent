@@ -6,7 +6,7 @@ app.use(express.json())
 app.post("/github" ,(req,res)=>{
     console.log("Github send a message")
     const data  = req.body;
-    console.log("data:",data)
+    console.log("data ",data)
     console.log("Repo name :" , data.repository.name)
     console.log("Pushed by :",data.pusher.name )
 })
