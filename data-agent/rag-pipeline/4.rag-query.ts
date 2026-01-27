@@ -23,10 +23,11 @@ import GeminiEmbedder from "./3.embedding";
 const LLM_MODEL = "gemini-2.5-flash"; // or "gemini-1.5-pro" for better quality
 const TEMPERATURE = 0.7;
 const MAX_TOKENS = 2048;
-const TOP_K_RESULTS = 5; // Number of similar chunks to retrieve
+const TOP_K_RESULTS = 3; // Number of similar chunks to retrieve
+const SIMILARITY_THRESHOLD = 0.75; // Minimum similarity score (0-1) to consider relevant
 
 export class RAGQuery {
-  private embedder: GeminiEmbedder;
+  public embedder: GeminiEmbedder;
   private llm: ChatGoogleGenerativeAI;
   private chain: RunnableSequence;
 
@@ -116,16 +117,25 @@ Answer:`,
 
     // Step 1: Retrieve relevant chunks using semantic search
     console.log("📚 Retrieving relevant context...\n");
-    const searchResults = await this.embedder.searchSimilar(
+    const allResults = await this.embedder.searchSimilar(
       question,
       topK,
       source
     );
 
+    // Filter by similarity threshold to exclude irrelevant results
+    const searchResults = allResults.filter(
+      (result) => result.similarity >= SIMILARITY_THRESHOLD
+    );
+
+    console.log(
+      `✓ Found ${allResults.length} results, ${searchResults.length} above ${SIMILARITY_THRESHOLD} similarity threshold\n`
+    );
+
     if (searchResults.length === 0) {
       return {
         answer:
-          "I don't have any relevant information in my knowledge base to answer this question. Please make sure data has been ingested and embedded.",
+          "I don't have any relevant information in my knowledge base to answer this question. The query doesn't match any content in the database.",
         sources: [],
       };
     }
@@ -160,6 +170,9 @@ Content: ${result.chunk.content}
       similarity: result.similarity,
       type: result.chunk.chunkType,
       source: result.chunk.source,
+      username: result.chunk.cleanedData.username,
+      filename: result.chunk.cleanedData.filename,
+      timestamp: result.chunk.cleanedData.timestamp?.toISOString(),
     }));
 
     console.log(`\n${"=".repeat(60)}`);

@@ -1,0 +1,21 @@
+FROM oven/bun:1.2-alpine
+
+WORKDIR /app
+
+# Copy package files
+COPY data-agent/package.json data-agent/bun.lockb* ./
+
+# Install dependencies
+RUN bun install --frozen-lockfile
+
+# Copy application code
+COPY data-agent/ ./
+
+# Generate Prisma client
+RUN bunx prisma generate
+
+# Expose API port
+EXPOSE 3001
+
+# Start the API server
+CMD ["bun", "run", "api-server.ts"]

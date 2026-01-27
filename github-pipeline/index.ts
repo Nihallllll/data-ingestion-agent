@@ -27,9 +27,7 @@ const data = req.body;
                 const content = await response.text();
 
                 console.log(`Content of ${filePath}:`);
-                console.log(content); // <--- THIS IS YOUR README TEXT!
-                
-                // --- NOW YOU CAN SAVE 'content' TO YOUR DATABASE ---
+                console.log(content); 
                 
             } catch (error) {
                 console.error("Error fetching file content:", error);
