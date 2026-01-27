@@ -61,4 +61,4 @@ Problem It Solves: Algorithmic stablecoins often fail during volatility, causing
 How It Works: The stablecoin maintains a peg through mint/burn mechanics tied to a governance token. During extreme volatility, circuit breakers pause minting and enforce gradual redemptions based on oracle data. Users stake collateral to earn yields, with automated rebalancing.
 Why Existing Solutions Are Not Enough: DAI is overcollateralized but inefficient; failed projects like Basis lacked safeguards. This adds volatility controls missing in most designs.
 Who Would Use This: Yield farmers, DAOs for treasury management, emerging markets for low-volatility assets.
-Why This Is a Good Open-Source Project: Allows community testing of peg algorithms, integrates with other DeFi tools, and shares lessons from past failures to build resilient standards.
+Why This Is a Good Open-Source Project: Allows community testing of peg algorithms, integrates with other DeFi tools, and shares lessons from past failures to build resilient standards. 
