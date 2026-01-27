@@ -1,64 +1,144 @@
-PictoPy
-PictoPy is an advanced desktop gallery application that combines the power of Tauri, React, and Rust for the frontend with a Python backend for sophisticated image analysis and management.
-
-Want to Contribute? 😄
-   
-
-First, join the Discord Server (Go to Projects->PictoPy) to chat with everyone.
-For detailed setup instructions, coding guidelines, and the contribution process, please check out our CONTRIBUTING.md file.
-Architecture
-Frontend
-Tauri: Enables building the desktop application
-React: Used for creating the user interface
-Rust: Powers the backend, which the frontend communicates with through Tauri's API
-Backend (Python)
-FastAPI: Serves as the API framework
-SQLite: Database for storing metadata and embeddings
-YOLO: Used for object detection
-FaceNet: Generates face embeddings
-ONNX Runtime: Runs the models efficiently
-DBSCAN: Performs clustering for face embeddings
-Backend (Rust via Tauri)
-Handles file system operations and provides a secure bridge between the frontend and local system.
+Inpact - AI-Powered Creator Collaboration & Sponsorship Matchmaking
+Inpact is an open-source AI-powered platform designed to connect content creators, brands, and agencies through data-driven insights. By leveraging Generative AI (GenAI), audience analytics, and engagement metrics, Inpact ensures highly relevant sponsorship opportunities for creators while maximizing ROI for brands investing in influencer marketing.
 
 Features
-Smart tagging of photos based on detected objects, faces, and their recognition
-Traditional gallery features of album management
-Advanced image analysis with object detection and facial recognition
-Privacy-focused design with offline functionality
-Efficient data handling and parallel processing
-Smart search and retrieval
-Cross-platform compatibility
-Technical Stack
-Component	Technology
-Frontend	React
-Desktop Framework	Tauri
-Rust Backend	Rust
-Python Backend	Python
-Database	SQLite
-Image Processing	OpenCV, ONNX Runtime
-Object Detection	YOLOv11
-Face Recognition	FaceNet
-API Framework	FastAPI
-State Management	Redux Toolkit
-Styling	Tailwind CSS
-Routing	React Router
-UI Components	ShadCN
-Build Tool	Vite
-Type Checking	TypeScript
-Our Code of Conduct: CODE_OF_CONDUCT.md
+AI-Driven Sponsorship Matchmaking
+Automatically connects creators with brands based on audience demographics, engagement rates, and content style.
+AI-Powered Creator Collaboration Hub
+Facilitates partnerships between creators with complementary audiences and content niches.
+AI-Based Pricing & Deal Optimization
+Provides fair sponsorship pricing recommendations based on engagement, market trends, and historical data.
+AI-Powered Negotiation & Contract Assistant
+Assists in structuring deals, generating contracts, and optimizing terms using AI insights.
+Performance Analytics & ROI Tracking
+Enables brands and creators to track sponsorship performance, audience engagement, and campaign success.
+Tech Stack
+Frontend: ReactJS
+Backend: FastAPI
+Database: Supabase
+AI Integration: GenAI for audience analysis and sponsorship recommendations
+Workflow
+1. User Registration & Profile Setup
+Creators, brands, and agencies sign up and set up their profiles.
+AI gathers audience insights and engagement data.
+2. AI-Powered Sponsorship Matchmaking
+The platform suggests brands and sponsorship deals based on audience metrics.
+Creators can apply for sponsorships or receive brand invitations.
+3. Collaboration Hub
+Creators can find and connect with others for joint campaigns.
+AI recommends potential collaborations based on niche and audience overlap.
+4. AI-Based Pricing & Contract Optimization
+AI provides fair pricing recommendations for sponsorships.
+Auto-generates contract templates with optimized terms.
+5. Campaign Execution & Tracking
+Creators execute sponsorship campaigns.
+Brands track campaign performance through engagement and ROI metrics.
+6. Performance Analysis & Continuous Optimization
+AI analyzes campaign success and suggests improvements for future deals.
+Brands and creators receive insights for optimizing future sponsorships.
+Getting Started
+Prerequisites
+Ensure you have the following installed:
+
+Node.js & npm
+Python & FastAPI
+Supabase account
+Installation
+1. Clone the repository
+git clone https://github.com/AOSSIE-Org/InPact.git
+cd inpact
+2. Frontend Setup
+Navigate to the frontend directory:
+cd frontend
+Install dependencies:
+npm install
+Create a .env file using .env-example file:
+
+Get your Supabase credentials:
+
+Go to Supabase
+Log in and create a new project (or use existing)
+Go to Project Settings -> API
+Copy the "Project URL" and paste it as VITE_SUPABASE_URL
+Copy the "anon public" key and paste it as VITE_SUPABASE_ANON_KEY
+3. Backend Setup
+Navigate to the backend directory:
+cd ../backend
+Install dependencies:
+pip install -r requirements.txt
+Navigate to the app directory:
+cd app
+Create a .env file using .env-example as a reference.
+
+Obtain Supabase credentials:
+
+Go to Supabase
+
+Log in and create a new project
+
+Click on the project and remember the project password
+
+Go to the Connect section at the top
+
+Select SQLAlchemy and copy the connection string:
+
+user=postgres
+password=[YOUR-PASSWORD]
+host=db.wveftanaurduixkyijhf.supabase.co
+port=5432
+dbname=postgres
+--OR--
+
+[The above works in ipv6 networks, if you are in ipv4 network or it cause errors, use the below connection string which could be found in Session Pooler connection]
+
+ user=postgres.<project>
+ password=[YOUR-PASSWORD]
+ host=aws-<location>.pooler.supabase.com
+ port=5432
+ dbname=postgres
+Get the Groq API key:
+
+Visit Groq Console
+Create an API key and paste it into the .env file
+4. Start Development Servers
+Start the frontend server (from the frontend directory):
+npm run dev
+Start the backend server (from the backend/app directory):
+uvicorn main:app --reload
+Data Population
+To populate the database with initial data, follow these steps:
+
+Open Supabase Dashboard
+
+Go to Supabase and log in.
+Select your created project.
+Access the SQL Editor
+
+In the left sidebar, click on SQL Editor.
+Run the SQL Script
+
+Open the sql.txt file in your project.
+Copy the SQL queries from the file.
+Paste the queries into the SQL Editor and click Run.
+This will populate the database with the required initial data for the platform. 🚀
+
+Contributing
+We welcome contributions from the community! To contribute:
+
+Fork the repository.
+Create a new branch for your feature (git checkout -b feature-name).
+Commit your changes (git commit -m "Added feature").
+Push to your branch (git push origin feature-name).
+Open a Pull Request.
+Overall Workflow
+
+FRONTEND workflow in detail
 
 
+BACKEND workflow in detail
 
 
+Contact
+For queries, issues, or feature requests, please raise an issue or reach out on our Discord server.
 
-
-
-
-PegGuard
-One-line Summary: An algorithmic stablecoin with built-in circuit breakers to prevent death spirals.
-Problem It Solves: Algorithmic stablecoins often fail during volatility, causing total value loss (e.g., Iron Finance's collapse), which erodes user confidence and limits DeFi's use for real-world finance.
-How It Works: The stablecoin maintains a peg through mint/burn mechanics tied to a governance token. During extreme volatility, circuit breakers pause minting and enforce gradual redemptions based on oracle data. Users stake collateral to earn yields, with automated rebalancing.
-Why Existing Solutions Are Not Enough: DAI is overcollateralized but inefficient; failed projects like Basis lacked safeguards. This adds volatility controls missing in most designs.
-Who Would Use This: Yield farmers, DAOs for treasury management, emerging markets for low-volatility assets.
-Why This Is a Good Open-Source Project: Allows community testing of peg algorithms, integrates with other DeFi tools, and shares lessons from past failures to build resilient standards. 
+Happy Coding!
