@@ -1,4 +1,3 @@
-import { file } from "bun"
 import express from "express"
 
 const app = express()
