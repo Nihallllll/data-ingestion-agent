@@ -1,0 +1,5 @@
+-- AlterTable
+ALTER TABLE "Data" ADD COLUMN     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+ADD COLUMN     "deletedAt" TIMESTAMP(3),
+ADD COLUMN     "lastProcessedAt" TIMESTAMP(3),
+ADD COLUMN     "processed" BOOLEAN NOT NULL DEFAULT false;

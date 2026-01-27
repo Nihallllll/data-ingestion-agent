@@ -1,5 +1,6 @@
 import { file } from "bun"
 import express from "express"
+import prisma from "./db-client"
 
 const app = express()
 app.use(express.json())
@@ -30,7 +31,17 @@ const data = req.body;
                 console.log(`Content of ${filePath}:`);
                 console.log(content); // <--- THIS IS YOUR README TEXT!
                 
-                
+                //DB call
+
+                await prisma.data.create({
+                    data :{
+                        data :{
+                            CONTENT : content,
+                            FILENAME : filePath
+                        },
+                        source : 'Github' 
+                    }
+                })
                 
             } catch (error) {
                 console.error("Error fetching file content:", error);

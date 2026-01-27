@@ -22,7 +22,7 @@ client.on('messageCreate', async (message) => {
 
     // 2. Filter for a specific channel (Optional)
     // You can get the Channel ID by right-clicking a channel in Discord -> Copy ID
-    const TARGET_CHANNEL_ID = "";
+    const TARGET_CHANNEL_ID = process.env.CHANNEL_ID;
     if (message.channelId !== TARGET_CHANNEL_ID) return;
     console.log("message : " , message)
     console.log(`📩 New message from ${message.author.username}:`);

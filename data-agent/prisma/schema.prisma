@@ -7,16 +7,87 @@
 generator client {
   provider = "prisma-client"
   output   = "../generated/prisma"
+  previewFeatures = ["postgresqlExtensions"]
 }
 
 datasource db {
   provider = "postgresql"
+  extensions = [vector]
 }
 
 model Data {
   id String @default(ulid()) @unique
   source Source
   data Json
+  processed Boolean @default(false)
+  createdAt DateTime @default(now())
+  lastProcessedAt DateTime?
+  deletedAt DateTime?
+  cleanedData CleanedData[]
+}
+
+model CleanedData {
+  id String @default(ulid()) @unique
+  dataId String
+  data Data @relation(fields: [dataId], references: [id], onDelete: Cascade)
+  
+  // Cleaned content
+  cleanedContent String
+  
+  // Metadata - common fields
+  source Source
+  timestamp DateTime
+  
+  // Discord-specific fields
+  username String?
+  userId String?
+  channelId String?
+  urls String[] @default([])
+  codeBlocks String[] @default([])
+  hasMedia Boolean @default(false)
+  
+  // GitHub-specific fields
+  filename String?
+  fileType String?
+  extension String?
+  isCode Boolean @default(false)
+  language String?
+  sections Json? // Array of {header, content}
+  
+  createdAt DateTime @default(now())
+  chunks Chunk[]
+}
+
+model Chunk {
+  id String @default(ulid()) @unique
+  cleanedDataId String
+  cleanedData CleanedData @relation(fields: [cleanedDataId], references: [id], onDelete: Cascade)
+  
+  // Chunk content
+  content String
+  chunkIndex Int
+  tokenCount Int
+  
+  // Embedding vector (768 dimensions for Google's text-embedding-004 model)
+  embedding Unsupported("vector(768)")?
+  embeddedAt DateTime?
+  
+  // Metadata
+  source Source
+  chunkType String // "discord_thread", "code_function", "markdown_section", "text_block"
+  
+  // Context metadata (enriched text for better embeddings)
+  contextMetadata String // e.g., "Discord message from @user on 2026-01-27: ..."
+  
+  // Discord-specific
+  messageCount Int? // How many messages in this chunk
+  participants String[] @default([]) // Usernames in conversation
+  
+  // GitHub-specific
+  functionName String? // For code chunks
+  headerPath String? // For markdown: "Introduction > Setup > Installation"
+  
+  createdAt DateTime @default(now())
 }
 
 enum Source{
