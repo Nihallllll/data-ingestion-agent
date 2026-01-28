@@ -1,144 +1,135 @@
-Inpact - AI-Powered Creator Collaboration & Sponsorship Matchmaking
-Inpact is an open-source AI-powered platform designed to connect content creators, brands, and agencies through data-driven insights. By leveraging Generative AI (GenAI), audience analytics, and engagement metrics, Inpact ensures highly relevant sponsorship opportunities for creators while maximizing ROI for brands investing in influencer marketing.
+EduAid: AI Quiz Generation 🚀
+Online learning has taken the front seat in the post-pandemic age. With the advent of sophisticated AI architectures like Transformers, it is only natural that AI would find its way into education. Learning online via platforms like YouTube or MOOCs is often a method of self-learning. The biggest obstacle faced by students in self-learning is the lack of attention span. An online tool that can generate short quizzes from input educational content can be a great resource for both teachers and students. It helps retain important information, frame questions, and quickly revise large chunks of content.
 
-Features
-AI-Driven Sponsorship Matchmaking
-Automatically connects creators with brands based on audience demographics, engagement rates, and content style.
-AI-Powered Creator Collaboration Hub
-Facilitates partnerships between creators with complementary audiences and content niches.
-AI-Based Pricing & Deal Optimization
-Provides fair sponsorship pricing recommendations based on engagement, market trends, and historical data.
-AI-Powered Negotiation & Contract Assistant
-Assists in structuring deals, generating contracts, and optimizing terms using AI insights.
-Performance Analytics & ROI Tracking
-Enables brands and creators to track sponsorship performance, audience engagement, and campaign success.
-Tech Stack
-Frontend: ReactJS
-Backend: FastAPI
-Database: Supabase
-AI Integration: GenAI for audience analysis and sponsorship recommendations
-Workflow
-1. User Registration & Profile Setup
-Creators, brands, and agencies sign up and set up their profiles.
-AI gathers audience insights and engagement data.
-2. AI-Powered Sponsorship Matchmaking
-The platform suggests brands and sponsorship deals based on audience metrics.
-Creators can apply for sponsorships or receive brand invitations.
-3. Collaboration Hub
-Creators can find and connect with others for joint campaigns.
-AI recommends potential collaborations based on niche and audience overlap.
-4. AI-Based Pricing & Contract Optimization
-AI provides fair pricing recommendations for sponsorships.
-Auto-generates contract templates with optimized terms.
-5. Campaign Execution & Tracking
-Creators execute sponsorship campaigns.
-Brands track campaign performance through engagement and ROI metrics.
-6. Performance Analysis & Continuous Optimization
-AI analyzes campaign success and suggests improvements for future deals.
-Brands and creators receive insights for optimizing future sponsorships.
-Getting Started
-Prerequisites
-Ensure you have the following installed:
+EduAid is one such project currently available in the form of a browser extension.
 
-Node.js & npm
-Python & FastAPI
-Supabase account
-Installation
-1. Clone the repository
-git clone https://github.com/AOSSIE-Org/InPact.git
-cd inpact
-2. Frontend Setup
-Navigate to the frontend directory:
-cd frontend
-Install dependencies:
-npm install
-Create a .env file using .env-example file:
+Installation and Setup
+1. Clone the Repository
+git clone https://github.com/AOSSIE-Org/EduAid.git
+cd EduAid
+2. Backend Setup
+You can choose to set up the backend manually or use an automated shell script.
 
-Get your Supabase credentials:
+Option 1: Manual Setup
+Download the Sense2Vec Model:
 
-Go to Supabase
-Log in and create a new project (or use existing)
-Go to Project Settings -> API
-Copy the "Project URL" and paste it as VITE_SUPABASE_URL
-Copy the "anon public" key and paste it as VITE_SUPABASE_ANON_KEY
-3. Backend Setup
-Navigate to the backend directory:
-cd ../backend
-Install dependencies:
+Download the Sense2Vec model from this link and extract the contents into the backend folder.
+Install Python Dependencies:
+
+Navigate to the root repository folder and run the following command to install the required Python dependencies:
 pip install -r requirements.txt
-Navigate to the app directory:
-cd app
-Create a .env file using .env-example as a reference.
+Run Flask App:
 
-Obtain Supabase credentials:
+Navigate to the backend folder and start the Flask app:
+python server.py
+This will activate the backend for the application.
+Option 2: Automated Setup with Shell Script
+Run the Setup Script:
+Navigate to the backend folder and run the following shell script:
+./script.sh
+This script will automatically download and extract the Sense2Vec model, install Python dependencies, and start the Flask app.
+Troubleshooting
+If the script fails to run, ensure that you have execution permissions:
+chmod +x script.sh
 
-Go to Supabase
+3. Configure Google APIs
+Google Docs API
+Navigate to the backend folder.
+Open the service_account_key.json file.
+Enter the service account details for the Google Docs API.
+Refer to the Google Docs API documentation for more details.
+Google Forms API
+Open the credentials.json file in the backend folder.
+Enter the necessary credentials for the Google Forms API.
+Refer to the Google Forms API quickstart guide for setup instructions.
+4. Extension Setup
+Install Dependencies
+Navigate to the extension folder and install the required dependencies:
 
-Log in and create a new project
+npm install
+Build the Project
+Build the extension:
 
-Click on the project and remember the project password
+npm run build
+Load the Extension in Chrome
+Open Chrome and navigate to chrome://extensions/.
+Enable "Developer mode" (top-right corner).
+Click on "Load Unpacked" and select the dist folder created in the previous step.
+EduAid Web App
+In addition to the browser extension, EduAid also offers a web app that provides the same powerful features for quiz generation. The web app allows you to access EduAid's capabilities directly from your browser without needing to install any extensions. Just start the backend server locally and:
 
-Go to the Connect section at the top
+Navigate to the Web App Directory: cd eduaid_web
+Install Dependencies: npm install
+Start the Web App: npm run start
+5. Desktop App Setup
+EduAid now includes a cross-platform desktop application built with Electron, providing a native desktop experience for all EduAid features.
 
-Select SQLAlchemy and copy the connection string:
+Prerequisites
+Node.js (version 16 or higher)
+Backend server running (follow steps 2-3 above)
+Web app built (follow step 4 above)
+Development Mode
+Navigate to Desktop App Directory:
 
-user=postgres
-password=[YOUR-PASSWORD]
-host=db.wveftanaurduixkyijhf.supabase.co
-port=5432
-dbname=postgres
---OR--
+cd eduaid_desktop
+Install Dependencies:
 
-[The above works in ipv6 networks, if you are in ipv4 network or it cause errors, use the below connection string which could be found in Session Pooler connection]
+npm install
+Start Development Mode:
 
- user=postgres.<project>
- password=[YOUR-PASSWORD]
- host=aws-<location>.pooler.supabase.com
- port=5432
- dbname=postgres
-Get the Groq API key:
-
-Visit Groq Console
-Create an API key and paste it into the .env file
-4. Start Development Servers
-Start the frontend server (from the frontend directory):
 npm run dev
-Start the backend server (from the backend/app directory):
-uvicorn main:app --reload
-Data Population
-To populate the database with initial data, follow these steps:
+This will start both the web app development server and launch the Electron desktop app.
 
-Open Supabase Dashboard
+Production Build
+Build Web App (if not already done):
 
-Go to Supabase and log in.
-Select your created project.
-Access the SQL Editor
+cd eduaid_web
+npm run build
+Build Desktop App:
 
-In the left sidebar, click on SQL Editor.
-Run the SQL Script
+cd eduaid_desktop
+npm run build:electron
+Build for All Platforms:
 
-Open the sql.txt file in your project.
-Copy the SQL queries from the file.
-Paste the queries into the SQL Editor and click Run.
-This will populate the database with the required initial data for the platform. 🚀
+npm run build:all
+The built applications will be available in the eduaid_desktop/dist/ directory with installers for Windows (.exe), macOS (.dmg), and Linux (.AppImage).
 
-Contributing
-We welcome contributions from the community! To contribute:
+Desktop App Features
+Native Desktop Experience: Full desktop integration with native menus and keyboard shortcuts
+Cross-Platform: Works on Windows, macOS, and Linux
+Security: Secure communication with context isolation
+Auto-Updates: Built-in support for automatic updates
+Features
+Dynamic Question Generation:
 
-Fork the repository.
-Create a new branch for your feature (git checkout -b feature-name).
-Commit your changes (git commit -m "Added feature").
-Push to your branch (git push origin feature-name).
-Open a Pull Request.
-Overall Workflow
+Boolean Questions: Quickly generate engaging true/false questions.
+Multiple-Choice Questions (MCQ): Create diverse MCQs with up to 4 options for comprehensive quizzes.
+Single Correct Answer Questions: Formulate questions with one clear correct answer.
+Customizable Question Count: Tailor the number of questions to your needs—just select the type, set the number, and hit "Generate" to see your quiz come to life!
+Quiz History at Your Fingertips:
 
-FRONTEND workflow in detail
+Last 5 Quizzes: Instantly access and review the last 5 quizzes you've generated. No more losing track—your quiz history is always just a click away!
+Smart Answer Generator:
 
+Automatic Answers: Seamlessly generate answers for various question types. Toggle the switch on the Get Started page to enable or disable this feature.
+MCQ Answer Magic: For MCQs, provide the options and let the tool generate the perfect answers for you.
+Wiki-Based Quiz Generation:
 
-BACKEND workflow in detail
+Topic-Based Quizzes: Missing text content for a topic? Toggle the switch in the bottom right corner of the Question Generator page to create a quiz based on the topic using external knowledge sources.
+Flexible Quiz Input:
 
+File Parsing: Upload .txt, .docx, or .pdf files to easily extract content for quiz creation.
+Google Docs Integration: Use the open shareable link from Google Docs to generate quizzes directly from your documents.
+Enhanced Quiz Visibility:
 
-Contact
-For queries, issues, or feature requests, please raise an issue or reach out on our Discord server.
+SidePanel View: Enjoy an organized and enhanced view of your generated quizzes right in the SidePanel.
+Editable Forms:
 
-Happy Coding!
+PDF Forms: Generate editable PDF forms based on your quizzes.
+Google Forms: Create Google Forms for your quizzes, perfect for easy distribution and response collection.
+How to contribute
+This is the second year of the project. While some may have their own ideas on how to contribute, for the newcomers to the repository, you may follow the following steps:
+
+First get to know the organization and the project by visiting the Official Website
+
+Visit the Discord Channel for interacting with the community!
